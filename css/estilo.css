@@ -88,6 +88,12 @@ header p {
   font-size: 1.3rem;
 }
 
+textarea::placeholder {
+  color: rgba(180, 100, 140, 0.4);
+textarea {
+  color: #3a1030;
+}   
+
 /* líneas a los lados del separador */
 .separador::before,
 .separador::after {
