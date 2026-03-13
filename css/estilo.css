@@ -1,0 +1,279 @@
+/* ─────────────────────────────
+   RESET Y BASE
+───────────────────────────── */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(
+    160deg,
+    #fce4ec 0%,
+    #f8bbd0 25%,
+    #e1f5fe 65%,
+    #b3e5fc 100%
+  );
+  font-family: 'Lora', serif;
+  overflow-x: hidden;
+}
+
+
+/* ─────────────────────────────
+   CORAZONES DE FONDO
+───────────────────────────── */
+#fondo-corazones {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+/* Cada corazón flotante del fondo */
+.corazon-fondo {
+  position: absolute;
+  bottom: -40px;
+  opacity: 0.12;
+  font-size: 1.4rem;
+  animation: subir linear infinite;
+}
+
+@keyframes subir {
+  0%   { transform: translateY(0)      rotate(0deg);   opacity: 0.12; }
+  100% { transform: translateY(-110vh) rotate(360deg); opacity: 0;    }
+}
+
+
+/* ─────────────────────────────
+   ENCABEZADO
+───────────────────────────── */
+header {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 52px 20px 10px;
+  animation: bajar 1s ease both;
+}
+
+@keyframes bajar {
+  from { opacity: 0; transform: translateY(-28px); }
+  to   { opacity: 1; transform: translateY(0);     }
+}
+
+header h1 {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  color: #880e4f;
+  text-shadow: 0 3px 16px rgba(233, 30, 140, 0.28);
+}
+
+header p {
+  font-style: italic;
+  color: #ad1457;
+  font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+  margin-top: 10px;
+}
+
+.separador {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px auto;
+  max-width: 360px;
+  color: #e91e8c;
+  font-size: 1.3rem;
+}
+
+/* líneas a los lados del separador */
+.separador::before,
+.separador::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e91e8c, transparent);
+}
+
+
+/* ─────────────────────────────
+   CONTENEDOR DE CARTAS
+───────────────────────────── */
+.contenedor-cartas {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  padding: 10px 28px 60px;
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+
+/* ─────────────────────────────
+   CARTA BASE
+───────────────────────────── */
+.carta {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: blur(14px);
+  border-radius: 28px;
+  width: clamp(300px, 44vw, 480px);
+  padding: 36px 32px;
+  box-shadow: 0 14px 54px rgba(0,0,0,0.10);
+  border: 1.5px solid rgba(244, 143, 177, 0.35);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  animation: aparecer 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  position: relative;
+}
+
+.carta:nth-child(1) { animation-delay: 0.15s; }
+.carta:nth-child(2) { animation-delay: 0.40s; }
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(55px) scale(0.9); }
+  to   { opacity: 1; transform: translateY(0)    scale(1);   }
+}
+
+/* barra de color arriba de cada carta */
+.carta::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 5px;
+  border-radius: 28px 28px 0 0;
+}
+.carta.rosa::before { background: linear-gradient(90deg, #f48fb1, #e91e8c, #f48fb1); }
+.carta.azul::before { background: linear-gradient(90deg, #90caf9, #1976d2, #90caf9); }
+
+/* ícono que rebota */
+.icono {
+  font-size: 2.8rem;
+  text-align: center;
+  animation: rebotar 2.2s ease-in-out infinite;
+}
+@keyframes rebotar {
+  0%, 100% { transform: translateY(0);  }
+  50%       { transform: translateY(-7px); }
+}
+
+/* título de cada carta */
+.carta h2 {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.5rem, 2.8vw, 2rem);
+  text-align: center;
+  line-height: 1.3;
+}
+.carta.rosa h2 { color: #880e4f; }
+.carta.azul h2 { color: #1565c0; }
+
+
+/* ─────────────────────────────
+   ÁREA DE PAPEL CON LÍNEAS
+───────────────────────────── */
+.papel {
+  /* líneas horizontales estilo cuaderno */
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    rgba(200, 160, 200, 0.2) 31px,
+    rgba(200, 160, 200, 0.2) 32px
+  );
+  border-radius: 12px;
+  padding: 16px 18px 16px 48px;  /* espacio izquierdo para el margen */
+  min-height: 320px;
+  border: 1px solid rgba(220, 150, 180, 0.3);
+  position: relative;
+}
+
+/* líneas de la carta azul */
+.carta.azul .papel {
+  background: repeating-linear-gradient(
+    transparent,
+    transparent 31px,
+    rgba(100, 160, 220, 0.2) 31px,
+    rgba(100, 160, 220, 0.2) 32px
+  );
+  border-color: rgba(100, 160, 220, 0.3);
+}
+
+/* línea vertical roja (margen izquierdo) */
+.papel::before {
+  content: '';
+  position: absolute;
+  left: 38px;
+  top: 0; bottom: 0;
+  width: 1.5px;
+}
+.carta.rosa .papel::before { background: rgba(233, 30, 140, 0.25); }
+.carta.azul .papel::before { background: rgba(66, 133, 244, 0.25); }
+
+/* el textarea transparente sobre el papel */
+textarea {
+  width: 100%;
+  min-height: 290px;
+  background: transparent;
+  border: none;
+  outline: none;
+  resize: none;
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 32px;   /* mismo alto que las líneas del papel */
+  color: #3a1030;
+}
+.carta.azul textarea {
+  color: #0d2a50;
+}
+
+textarea::placeholder {
+  color: rgba(180, 100, 140, 0.4);
+  font-style: italic;
+}
+.carta.azul textarea::placeholder {
+  color: rgba(70, 120, 200, 0.4);
+}
+
+/* pista debajo del papel */
+.pista {
+  font-size: 0.78rem;
+  text-align: right;
+  font-style: italic;
+  opacity: 0.5;
+}
+.carta.rosa .pista { color: #880e4f; }
+.carta.azul .pista { color: #1565c0; }
+
+
+/* ─────────────────────────────
+   PIE DE PÁGINA
+───────────────────────────── */
+footer {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 10px 20px 52px;
+  animation: subir-footer 1s ease 1s both;
+}
+
+@keyframes subir-footer {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+
+footer p {
+  font-family: 'Dancing Script', cursive;
+  font-size: clamp(1.2rem, 2.8vw, 1.75rem);
+  color: #880e4f;
+  line-height: 1.7;
+}
+
+.firma {
+  font-size: 1.05rem !important;
+  color: #ad1457 !important;
+}
